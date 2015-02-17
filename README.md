@@ -60,6 +60,6 @@ Public Domain
 
 ##### Author
 
-yukpiz <yukpiz@gmail.com>  
+yukpiz \<yukpiz@gmail.com\>  
 
 
