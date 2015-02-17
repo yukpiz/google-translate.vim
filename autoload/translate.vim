@@ -1,4 +1,11 @@
-function! translate#controller()
+
+"A funny-looking moth has more in common with fighter jets than most of us would ever
+"have guessed: The luna moth's long, fluttering tail acts like radar-distracting chaff
+"for bats' echolocation signals, effectively misdirecting the flying mammals to an
+"expendable part of their body. It's a scene seemingly better suited to Top Gun than
+"the night skies of North America, but hey, the animal kingdom is no stranger to a good arms race.
+
+function! translate#controller(...) range
     "TODO: function controller
 endfunction
 
@@ -75,7 +82,6 @@ function! translate#get(query_string)
     echo 'target: ' . s:request_parameters['target']
     echo 'translate: ' . a:query_string
     echo 'translated: ' . decoded_json['data']['translations'][0]['translatedText']
-
 endfunction
 
 function! translate#rocks(query_string)
@@ -107,14 +113,15 @@ function! translate#rocks(query_string)
 endfunction
 
 function! translate#text_object()
-    "TODO: mode text object
+    let word = expand('<cword>')
+    call translate#rocks(word)
 endfunction
 
-function! translate#argument()
-    "TODO: mode arguments
+function! translate#argument(string)
+    call translate#rocks(a:string)
 endfunction
 
-function! translate#visual_mode()
+function! translate#visual_mode(...) range
     "TODO: selected in the visual mode
 endfunction
 
