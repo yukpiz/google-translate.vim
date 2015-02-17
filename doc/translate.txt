@@ -1,0 +1,14 @@
+*translate.txt*				Translate with Google Translate
+
+Author: yukpiz <yukpiz@gmail.com>
+WebSite: http://yukpiz.me
+Repository: http://github.com/yukpiz/google-translate.vim
+License: Public Domain
+
+==============================================================================
+CONTENTS				*google-translate-contents*
+
+==============================================================================
+
+
+vim:tw=78:fo=tcq2mM:ts=8:ft=help:norl:noet
