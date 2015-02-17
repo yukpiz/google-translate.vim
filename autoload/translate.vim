@@ -39,8 +39,10 @@ endfunction
 function! translate#custom_options(custom_parameters)
     if has_key(a:custom_parameters, 'source')
         let source = a:custom_parameters['source']
+
         "Customize source language
         let s:request_parameters['source'] = source
+
         "Customize target language
         let s:request_parameters['target'] =
         \has_key(g:translate_comparisons, source)
@@ -50,29 +52,45 @@ function! translate#custom_options(custom_parameters)
 endfunction
 
 function! translate#get(query_string)
+    "Requires Vital.Web.HTTP
+    let http_vital = vital#of('vital').import('Web.HTTP')
     let url =
     \s:google_translate_url . '?' .
-    \'key=' . s:request_parameters['key'] . '&' .
-    \'target=' . s:request_parameters['target'] . '&' .
-    \'type=' . s:request_parameters['type'] . '&' .
-    \'q=' . a:query_string
+    \http_vital.encodeURI({
+    \'key': s:request_parameters['key'],
+    \'target': s:request_parameters['target'],
+    \'source': s:request_parameters['source'],
+    \'type': s:request_parameters['type'],
+    \'q': a:query_string,
+    \})
 
-    let http_vital = vital#of('vital').import('Web.HTTP')
     let response = http_vital.get(url)
     let content = response.content
-    echo content
+
+    "Requires Vital.Web.JSON
+    let json_vital = vital#of('vital').import('Web.JSON')
+    let decoded_json = json_vital.decode(content)
+
+    echo 'source: ' . s:request_parameters['source']
+    echo 'target: ' . s:request_parameters['target']
+    echo 'translate: ' . a:query_string
+    echo 'translated: ' . decoded_json['data']['translations'][0]['translatedText']
+
 endfunction
 
 function! translate#rocks(query_string)
     call translate#init_options()
-    let url =
-    \s:google_detect_url . '?' .
-    \'key=' . s:request_parameters['key'] . '&' .
-    \'type=' . s:request_parameters['type'] . '&' .
-    \'q=' . a:query_string
 
     "Requires Vital.Web.HTTP
     let http_vital = vital#of('vital').import('Web.HTTP')
+    let url =
+    \s:google_detect_url . '?' .
+    \http_vital.encodeURI({
+    \'key': s:request_parameters['key'],
+    \'type': s:request_parameters['type'],
+    \'q': a:query_string,
+    \})
+
     let response = http_vital.get(url) "If the response is if error?
     let content = response.content
 
