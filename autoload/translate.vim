@@ -1,14 +1,3 @@
-
-"A funny-looking moth has more in common with fighter jets than most of us would ever
-"have guessed: The luna moth's long, fluttering tail acts like radar-distracting chaff
-"for bats' echolocation signals, effectively misdirecting the flying mammals to an
-"expendable part of their body. It's a scene seemingly better suited to Top Gun than
-"the night skies of North America, but hey, the animal kingdom is no stranger to a good arms race.
-
-function! translate#controller(...) range
-    "TODO: function controller
-endfunction
-
 function! translate#init_options()
     if !exists('g:google_api_key')
         let g:google_api_key = 'AIzaSyAgy_6ymAn7u8HkW3Ozhk-RE0BzG9gfWig'
@@ -117,11 +106,21 @@ function! translate#text_object()
     call translate#rocks(word)
 endfunction
 
-function! translate#argument(string)
-    call translate#rocks(a:string)
+function! translate#argument(...)
+    let i = 1
+    let strline  = ''
+    while i <= a:0
+        let strline = strline . ' ' . get(a:, i, '')
+        let i = i + 1
+    endwhile
+    call translate#rocks(strline)
 endfunction
 
-function! translate#visual_mode(...) range
-    "TODO: selected in the visual mode
+function! translate#visual_mode()
+    let tmp = @@
+    silent normal gvy
+    let selected = @@
+    let @@ = tmp
+    call translate#rocks(selected)
 endfunction
 
