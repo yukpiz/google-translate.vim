@@ -10,9 +10,9 @@ function! translate#init_options()
     endif
     if !exists('g:translate_comparisons')
         let g:translate_comparisons = {
-        \  g:translate_default_source: g:translate_default_target,
-        \  g:translate_default_target: g:translate_default_source,
-        \  'etc': g:translate_default_target,
+        \  'en': 'ja',
+        \  'ja': 'en',
+        \  'etc': 'ja',
         \}
     else
         if !has_key(g:translate_comparisons, 'etc')
