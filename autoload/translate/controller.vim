@@ -1,8 +1,10 @@
 function! translate#controller#text_object_mode()
     "Get a text object of cursor position.
     let word = expand('<cword>')
+    call translate#init_options() "Initialize default options.
     "Call the common translation function.
-    call translate#controller#translation(word)
+    let response =  translate#automatically_get(word)
+    echo response
 endfunction
 
 function! translate#controller#argument_mode(...)
@@ -13,8 +15,10 @@ function! translate#controller#argument_mode(...)
         let strline = strline . ' ' . get(a:, i, '')
         let i = i + 1
     endwhile
+    call translate#init_options() "Initialize default options.
     "Call the common translation function.
-    call translate#controller#translation(strline)
+    let response = translate#automatically_get(strline)
+    echo response
 endfunction
 
 function! translate#controller#visual_mode()
@@ -23,21 +27,12 @@ function! translate#controller#visual_mode()
     silent normal gvy
     let selected = @@
     let @@ = tmp
+    call translate#init_options() "Initialize default options.
     "Call the common translation function.
-    call translate#controller#translation(selected)
+    let response = translate#automatically_get(selected)
+    echo response
 endfunction
 
-function! translate#controller#translation(query_string)
-    call translate#init_options() "Initialize default options.
-    "Call 'Google Translate Rocks' and get source language.
-    let auto_source = translate#get_auto_source(a:query_string)
-
-    "Generate custom parameters and reflect it.
-    let custom_parameters = {
-    \'source': auto_source
-    \}
-    call translate#custom_options(custom_parameters)
-
-    "Execute translation.
-    call translate#get(a:query_string)
+function! translate#controller#buffer_mode()
+    "manually_getを呼び出す為の準備
 endfunction
