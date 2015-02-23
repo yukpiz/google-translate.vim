@@ -33,6 +33,17 @@ function! translate#controller#visual_mode()
     echo response
 endfunction
 
-function! translate#controller#buffer_mode()
-    "manually_getを呼び出す為の準備
+function! translate#controller#buffer_mode(bufinfo)
+    let source_lang =
+    \  getbufvar(a:bufinfo['source_buffer'], 'source_language', '')
+    let target_lang =
+    \  getbufvar(a:bufinfo['target_buffer'], 'target_language', '')
+
+    let lines = getline(0, '$')
+    let q = ''
+    for line in lines
+        let q = q . line . ' '
+    endfor
+    let response = translate#manually_get(q, source_lang, target_lang)
+    call translate#interface#parse_buffer(response)
 endfunction
