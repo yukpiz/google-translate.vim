@@ -73,11 +73,10 @@ function! translate#get(query_string)
     echo 'translated: ' . decoded_json['data']['translations'][0]['translatedText']
 endfunction
 
-function! translate#rocks(query_string)
-    call translate#init_options()
-
+function! translate#get_auto_source(query_string)
     "Requires Vital.Web.HTTP
     let http_vital = vital#of('vital').import('Web.HTTP')
+    "Generate GET URL
     let url =
     \s:google_detect_url . '?' .
     \http_vital.encodeURI({
@@ -93,34 +92,5 @@ function! translate#rocks(query_string)
     let json_vital = vital#of('vital').import('Web.JSON')
     let decoded_json = json_vital.decode(content)
 
-    let custom_parameters = {
-    \'source': decoded_json['data']['detections'][0][0]['language'],
-    \}
-
-    call translate#custom_options(custom_parameters)
-    call translate#get(a:query_string)
+    return decoded_json['data']['detections'][0][0]['language']
 endfunction
-
-function! translate#text_object()
-    let word = expand('<cword>')
-    call translate#rocks(word)
-endfunction
-
-function! translate#argument(...)
-    let i = 1
-    let strline  = ''
-    while i <= a:0
-        let strline = strline . ' ' . get(a:, i, '')
-        let i = i + 1
-    endwhile
-    call translate#rocks(strline)
-endfunction
-
-function! translate#visual_mode()
-    let tmp = @@
-    silent normal gvy
-    let selected = @@
-    let @@ = tmp
-    call translate#rocks(selected)
-endfunction
-
