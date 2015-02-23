@@ -4,6 +4,11 @@ This plug-in is a translation tool to use Google Translate API.
 
 ##### Description
 
+This plug-in is for use Google Translate.
+
+* Customization of the source and target language is possible.
+* Using "Google Translation Rocks", automatically determine the source language.
+
 
 ##### Dependents
 
