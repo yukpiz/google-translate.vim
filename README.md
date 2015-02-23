@@ -1,8 +1,8 @@
-#### google-translate.vim
+### google-translate.vim
 
 This plug-in is a translation tool to use Google Translate API.
 
-##### Description
+#### Description
 
 This plug-in is for use Google Translate.
 
@@ -10,18 +10,18 @@ This plug-in is for use Google Translate.
 * Using "Google Translation Rocks", automatically determine the source language.
 
 
-##### Dependents
+#### Dependents
 
 * [vim-jp/vital.vim](https://github.com/vim-jp/vital.vim)
 
 
-##### Installation
+#### Installation
 
 ~~~
 NeoBundle "yukpiz/google-translate.vim"
 ~~~
 
-##### Usage
+#### Usage
 
 Translate word of the cursor position.  
 ~~~
@@ -38,7 +38,7 @@ Translate a selection of visual mode.
 :'<,'>TransVisual
 ~~~
 
-##### Customize options
+#### Customize options
 
 The Google API there is a request limit.  
 If you exceed the limit in my free frame you will not be able to use the plug-in.  
@@ -58,12 +58,12 @@ let g:translate_comparisons = {
 ~~~
 
 
-##### License
+#### License
 
 Public Domain  
 
 
-##### Author
+#### Author
 
 yukpiz \<yukpiz@gmail.com\>  
 
