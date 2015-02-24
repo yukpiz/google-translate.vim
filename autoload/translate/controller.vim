@@ -40,10 +40,10 @@ function! translate#controller#buffer_mode(bufinfo)
     \  getbufvar(a:bufinfo['target_buffer'], 'target_language', '')
 
     let lines = getline(0, '$')
-    let q = ''
+    let response_list = []
     for line in lines
-        let q = q . line . ' '
+        let response = translate#manually_get(line, source_lang, target_lang)
+        call add(response_list, response['data']['translations'][0]['translatedText'])
     endfor
-    let response = translate#manually_get(q, source_lang, target_lang)
-    call translate#interface#parse_buffer(response)
+    call translate#interface#parse_buffer(response_list)
 endfunction

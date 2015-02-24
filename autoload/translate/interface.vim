@@ -37,7 +37,7 @@ function! translate#interface#source_buffer_settings()
     execute 'startinsert'
 endfunction
 
-function! translate#interface#parse_buffer(response)
+function! translate#interface#parse_buffer(lines)
     execute bufwinnr(s:bufinfo['target_buffer']) . 'wincmd w'
 
     setlocal modifiable
@@ -48,7 +48,7 @@ function! translate#interface#parse_buffer(response)
         let i = i + 1
     endwhile
 
-    call setline('.', a:response['data']['translations'][0]['translatedText'])
+    call setline('.', a:lines)
     setlocal nomodifiable
 
     execute bufwinnr(s:bufinfo['source_buffer']) . 'wincmd w'
