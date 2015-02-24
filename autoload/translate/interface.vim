@@ -15,10 +15,21 @@ function! translate#interface#open_target_only()
     "TODO: TransWord, TransArgs, TransVisual...
 endfunction
 
+function! translate#interface#close()
+    for b in range(1, bufnr('$'))
+        let bufname = getbufvar(b, 'buffer_type')
+        if bufname ==# 'trans_buffer'
+            execute bufwinnr(b) . 'wincmd w'
+            execute 'q'
+        endif
+    endfor
+endfunction
+
 function! translate#interface#target_buffer_settings()
     setlocal buftype=nowrite noswapfile bufhidden=wipe
     setlocal nonumber wrap nocursorcolumn nomodifiable
     setlocal statusline=TARGET\ LANGUAGE:\ ja
+    call setbufvar(s:bufinfo['target_buffer'], 'buffer_type', 'trans_buffer')
     call setbufvar(
     \s:bufinfo['target_buffer'],
     \'target_language',
@@ -29,6 +40,7 @@ function! translate#interface#source_buffer_settings()
     setlocal buftype=nowrite noswapfile bufhidden=wipe
     setlocal nonumber wrap nocursorcolumn
     setlocal statusline=SOURCE\ LANGUAGE:\ en
+    call setbufvar(s:bufinfo['source_buffer'], 'buffer_type', 'trans_buffer')
     call setbufvar(
     \s:bufinfo['source_buffer'],
     \'source_language',

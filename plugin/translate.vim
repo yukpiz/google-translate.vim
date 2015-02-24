@@ -9,3 +9,6 @@ command! -nargs=0 -range TransVisual :call translate#controller#visual_mode()
 
 "Open the translation buffer interface.
 command! -nargs=0 Trans :call translate#interface#open()
+
+"Close the translation buffer interface.
+command! -nargs=0 TransClose :call translate#interface#close()
