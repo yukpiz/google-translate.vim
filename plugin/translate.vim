@@ -12,3 +12,15 @@ command! -nargs=0 Trans :call translate#interface#open()
 
 "Close the translation buffer interface.
 command! -nargs=0 TransClose :call translate#interface#close()
+
+command! -nargs=0 TransHistory :call translate#history#syntax()
+
+"Syntax Example
+function! HighLightText(text)
+    syntax on
+    execute 'syntax match RedColor ''' . a:text . ''' display containedin=ALL'
+    highlight RedColor ctermbg=Green
+    "syntax match RedColor text display containedin=ALL
+    "syntax match YellowColor 'Trans' display containedin=ALL
+    "highlight YellowColor ctermbg=Red guibg=Red
+endfunction
