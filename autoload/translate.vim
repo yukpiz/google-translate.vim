@@ -26,6 +26,18 @@ function! translate#init_options()
     let s:google_detect_url = 'https://www.googleapis.com/language/translate/v2/detect'
 endfunction
 
+function! translate#target_set(lang)
+    "TODO: check argument language.
+endfunction
+
+function! translate#source_set(lang)
+    "TODO: check argument language.
+endfunction
+
+function! translate#lang_set(source_lang, target_lang)
+    "TODO: check argument language.
+endfunction
+
 function! translate#automatically_get(q)
     let customize_parameters = {
     \  'key': g:google_api_key,
